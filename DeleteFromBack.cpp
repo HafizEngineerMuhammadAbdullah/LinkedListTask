@@ -24,7 +24,7 @@ class LinkedList {
 public:
   LinkedList() { head = NULL; }
 
-   ~LinkedList() {
+  ~LinkedList() {
     Node *temp;
     while (head != NULL) {
       temp = head;
@@ -37,8 +37,8 @@ public:
   void push_front(int val) {
 
     Node *newNode = new Node(val); // create a new node
-    // if the head has a 'NULL' means there is no node available in our Linked
-    // list i.e. our LinkedList is empty
+    // if the head has a 'NULL' value means there is no node available in our
+    // Linked list i.e. our LinkedList is empty
     if (head == NULL) {
       head = newNode;
       return;
@@ -50,6 +50,37 @@ public:
     head = newNode;
   }
 
+  // push(add/insert) the node at the end of LL
+  void push_back(int val) {
+    // create a newNode with an inputted(inserted) value
+    Node *newNode = new Node(val);
+    // Case 1 : if LL is empty
+    if (head == NULL) {
+      head = newNode;
+    }
+    // Case 2 : Both cases are handled one is when single node is present and
+    // second one is more than one nodes are available in LL
+    Node *temp = head;
+    while (temp->next != NULL) {
+      temp = temp->next;
+    }
+    temp->next = newNode;
+  }
+
+  // pop(delete/eliminate/remove) the element from the front of LL
+  void pop_front() {
+    // if the head has a 'NULL' means there is no node available in our Linked
+    // list i.e. our LinkedList is empty
+    if (head == NULL) {
+      cout << "LinkedList is empty.Nothing to pop!" << endl;
+      return;
+    }
+
+    Node* temp = head;
+    head = head->next;
+    temp->next = NULL;
+    delete temp;
+  }
   // pop(delete/eliminate/remove) the node from the end(last) of the LinkedList
   void pop_back() {
     // if the head has a 'NULL' means there is no node available in our Linked
@@ -60,6 +91,7 @@ public:
     }
 
     Node *temp = head;
+    // case 1 : when more than one node is present in our LL.
     if (temp->next != NULL) {
       while (temp->next->next != NULL) {
         temp = temp->next;
@@ -67,7 +99,7 @@ public:
       Node *delNode = temp->next;
       temp->next = NULL;
       delete delNode;
-    } else { // case of single node(when one node is present)
+    } else { // case 2 of single node(when one node is present)
       delete temp;
       head = NULL;
     }
@@ -111,8 +143,8 @@ int main() {
   ll.printLL();
 
   ll.pop_back();
-    ll.pop_back();
-    ll.pop_back();
+  ll.pop_back();
+  ll.pop_back();
   cout << "LinkedList after popping" << endl;
   ll.printLL();
 }

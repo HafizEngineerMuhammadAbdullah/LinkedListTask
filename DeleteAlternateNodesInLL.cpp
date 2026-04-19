@@ -327,6 +327,20 @@ public:
     }
     return;
   }
+ 
+  // function to Delete alternate nodes in the linked list
+  void deleteAltNodes(Node* head){
+    if(head == NULL || head->next == NULL){
+        return;
+    }
+    Node* curr = head;
+    while(curr != NULL && curr->next != NULL){
+        Node* nodeToDelete = curr->next;
+        curr->next = curr->next->next;
+        delete nodeToDelete;
+        curr = curr->next;
+    }
+  }
 
   // print all the elements of linked list.
   void printll() // TC:O(n)
@@ -357,7 +371,8 @@ void instructions() {
        << " 6 to search a value in Singly Linked list\n"
        << " 7 to count total nodes in Singly Linked list\n"
        << " 8 to insert at a given position in Singly Linked list\n"
-       << " 9 to end Singly Linked list processing\n";
+       << " 9 to delete alternate nodes in Singly Linked list\n"
+       << " 10 to end Singly Linked list processing\n";
   return;
 }
 
@@ -413,6 +428,10 @@ void testList() {
       ll.printll();
       break;
     case 9:
+      ll.deleteAltNodes(ll.head);
+      ll.printll();
+      break;
+    case 10:
       cout << "Exiting Singly Linked List processing." << endl;
       break;
     default:
